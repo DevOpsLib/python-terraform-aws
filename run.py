@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from lib import generate
+from python_terraform import *
 
 import argparse
 
@@ -14,10 +15,13 @@ def main():
     parser.add_argument('--apply', '-a', metavar='<TEMPLATE_NAME>', help='Apply given Terraform script.')
     args = parser.parse_args()
 
+    tf = Terraform(working_dir='output/')
+    tf.init()
+
     if args.generate:
         generate.templates()
     elif args.plan:
-        print("PLAN")
+        print(tf.plan(no_color=IsFlagged, refresh=False, capture_output=True))
     elif args.apply:
         print("APPLY")
     else:
