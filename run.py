@@ -1,27 +1,27 @@
 #!/usr/bin/env python
 
-from terrascript import *
-from templates import *
+from lib import generate
 
-import sys
-import yaml
-
-
-def get_config():
-    """Load Config YAML file."""
-    with open('config.yml') as f:
-        configuration = yaml.load(f)
-
-    return configuration
-
+import argparse
 
 def main():
-    environment = 'test'
-    cfg = get_config() 
-    env = cfg['environments'][environment]
+    parser = argparse.ArgumentParser(description='Generate, plan and apply terraform scripts in templates.')
+    subparsers = parser.add_subparsers(title='subcommands',
+                                       description='Valid subcommands:',
+                                       dest='generate')
+    subparsers.add_parser('generate', help='Generate Terraform scripts for the files listed in templates/.')
+    parser.add_argument('--plan', '-p', metavar='<TEMPLATE_NAME>', help='Plan given Terraform script.')
+    parser.add_argument('--apply', '-a', metavar='<TEMPLATE_NAME>', help='Apply given Terraform script.')
+    args = parser.parse_args()
 
-    cluster, sg_alb, sg_cluster, launch_config = ecs_cluster.ecs_cluster(cfg['cluster_name'], env['instance_type'], env['ami_id'] , env['min_instance'], env['max_instance'])
-    print(dump())
+    if args.generate:
+        generate.templates()
+    elif args.plan:
+        print("PLAN")
+    elif args.apply:
+        print("APPLY")
+    else:
+        print("OUTRO")
 
 
 if __name__ == '__main__':

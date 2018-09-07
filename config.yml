@@ -1,24 +1,10 @@
 ---
 
-cluster_name: pedro_cesar
+cluster_name: myEcsCluster
+region: ap-southeast-1
 
+ami_id: ami-091bf462afdb02c60
+instance_type: t2.nano
 
-environments:
-    test:
-        region: ap-southeast-1
-
-        ami_id: ami-091bf462afdb02c60
-        instance_type: t2.nano
-
-        min_instance: 1
-        max_instance: 1
-
-
-    production:
-        region: ap-southeast-2
-
-        ami_id: ami-0092e55c70015d8c3
-        instance_type: t2.micro
-
-        min_instance: 1
-        max_instance: 3
+min_instance: 1
+max_instance: 1

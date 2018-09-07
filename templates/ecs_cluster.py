@@ -2,7 +2,7 @@ from terrascript import *
 import terrascript.aws.r as r
 import terrascript.aws.d as d
 
-def ecs_cluster(cluster_name, instance_type, ami_id, min_size, max_size):
+def create_template(cluster_name, instance_type, ami_id, min_size, max_size):
     """ECS Cluster Module"""
 
     # Cluster ECS
@@ -52,6 +52,4 @@ def ecs_cluster(cluster_name, instance_type, ami_id, min_size, max_size):
                         'create_before_destroy': True
                     })
 
-
-
-    return ecs_cluster, sg_alb, sg_cluster, launch_config
+    return ecs_cluster, sg_alb, sg_cluster, alb
